@@ -34,4 +34,18 @@ class PlayerService {
       rethrow;
     }
   }
+
+  Future<Player?> getPlayerByName(String name) async {
+    try {
+      final response = await _client.get(
+        '/api/players/by-name',
+        queryParameters: {'name': name},
+      );
+      final data = response.data;
+      if (data == null) return null;
+      return Player.fromJson(data as Map<String, dynamic>);
+    } on DioException {
+      rethrow;
+    }
+  }
 }

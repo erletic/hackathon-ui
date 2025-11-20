@@ -16,6 +16,7 @@ final playersProvider = FutureProvider<List<Player>>((ref) async {
 
 final selectedPlayerProvider = StateProvider<Player?>((ref) => null);
 
+<<<<<<< HEAD
 final shortlistProvider = StateNotifierProvider<ShortlistNotifier, List<Player>>((ref) {
   return ShortlistNotifier(ref);
 });
@@ -51,3 +52,7 @@ class ShortlistNotifier extends StateNotifier<List<Player>> {
     state = [];
   }
 }
+=======
+/// Holds the last player found via name search (keeps it independent from card selection).
+final searchedPlayerProvider = StateProvider<Player?>((ref) => null);
+>>>>>>> 7a37f2e5020d64eb343bc776bb6c8c4fc5d9a7b1
