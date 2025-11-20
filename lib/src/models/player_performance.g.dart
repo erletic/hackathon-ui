@@ -1,0 +1,102 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'player_performance.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+PlayerPerformance _$PlayerPerformanceFromJson(
+  Map<String, dynamic> json,
+) => PlayerPerformance(
+  player: json['player'] as String,
+  shortName: json['short_name'] as String,
+  playerId: (json['player_id'] as num).toInt(),
+  birthdate: json['birthdate'] as String,
+  team: json['team'] as String,
+  teamId: (json['team_id'] as num).toInt(),
+  match: json['match'] as String,
+  matchId: (json['match_id'] as num).toInt(),
+  date: json['date'] as String,
+  competition: json['competition'] as String,
+  competitionId: (json['competition_id'] as num).toInt(),
+  season: json['season'] as String,
+  seasonId: (json['season_id'] as num).toInt(),
+  competitionEditionId: (json['competition_edition_id'] as num).toInt(),
+  position: json['position'] as String,
+  positionGroup: json['position_group'] as String,
+  minutes: (json['minutes'] as num).toDouble(),
+  physicalCheckPassed: json['physical_check_passed'] as bool,
+  distance: (json['distance'] as num).toDouble(),
+  mPerMin: (json['m_per_min'] as num).toDouble(),
+  runningDistance: (json['running_distance'] as num).toDouble(),
+  hsrDistance: (json['hsr_distance'] as num).toDouble(),
+  hsrCount: (json['hsr_count'] as num).toInt(),
+  sprintDistance: (json['sprint_distance'] as num).toDouble(),
+  sprintCount: (json['sprint_count'] as num).toInt(),
+  hiDistance: (json['hi_distance'] as num).toDouble(),
+  hiCount: (json['hi_count'] as num).toInt(),
+  psv99: (json['psv_99'] as num).toDouble(),
+  mediumAccelerationCount: (json['medium_acceleration_count'] as num).toInt(),
+  highAccelerationCount: (json['high_acceleration_count'] as num).toInt(),
+  mediumDecelerationCount: (json['medium_deceleration_count'] as num).toInt(),
+  highDecelerationCount: (json['high_deceleration_count'] as num).toInt(),
+  explosiveAccelerationToHsrCount:
+      (json['explosive_acceleration_to_hsr_count'] as num).toInt(),
+  timeToHsr: (json['time_to_hsr'] as num).toDouble(),
+  timeToHsrPostCod: (json['time_to_hsr_post_cod'] as num).toDouble(),
+  explosiveAccelerationToSprintCount:
+      (json['explosive_acceleration_to_sprint_count'] as num).toInt(),
+  timeToSprint: (json['time_to_sprint'] as num).toDouble(),
+  timeToSprintPostCod: (json['time_to_sprint_post_cod'] as num).toDouble(),
+  changeOfDirectionCount: (json['change_of_direction_count'] as num).toInt(),
+  timeTo505Around90: (json['time_to_505_around_90'] as num).toDouble(),
+  timeTo505Around180: (json['time_to_505_around_180'] as num).toDouble(),
+);
+
+Map<String, dynamic> _$PlayerPerformanceToJson(PlayerPerformance instance) =>
+    <String, dynamic>{
+      'player': instance.player,
+      'short_name': instance.shortName,
+      'player_id': instance.playerId,
+      'birthdate': instance.birthdate,
+      'team': instance.team,
+      'team_id': instance.teamId,
+      'match': instance.match,
+      'match_id': instance.matchId,
+      'date': instance.date,
+      'competition': instance.competition,
+      'competition_id': instance.competitionId,
+      'season': instance.season,
+      'season_id': instance.seasonId,
+      'competition_edition_id': instance.competitionEditionId,
+      'position': instance.position,
+      'position_group': instance.positionGroup,
+      'minutes': instance.minutes,
+      'physical_check_passed': instance.physicalCheckPassed,
+      'distance': instance.distance,
+      'm_per_min': instance.mPerMin,
+      'running_distance': instance.runningDistance,
+      'hsr_distance': instance.hsrDistance,
+      'hsr_count': instance.hsrCount,
+      'sprint_distance': instance.sprintDistance,
+      'sprint_count': instance.sprintCount,
+      'hi_distance': instance.hiDistance,
+      'hi_count': instance.hiCount,
+      'psv_99': instance.psv99,
+      'medium_acceleration_count': instance.mediumAccelerationCount,
+      'high_acceleration_count': instance.highAccelerationCount,
+      'medium_deceleration_count': instance.mediumDecelerationCount,
+      'high_deceleration_count': instance.highDecelerationCount,
+      'explosive_acceleration_to_hsr_count':
+          instance.explosiveAccelerationToHsrCount,
+      'time_to_hsr': instance.timeToHsr,
+      'time_to_hsr_post_cod': instance.timeToHsrPostCod,
+      'explosive_acceleration_to_sprint_count':
+          instance.explosiveAccelerationToSprintCount,
+      'time_to_sprint': instance.timeToSprint,
+      'time_to_sprint_post_cod': instance.timeToSprintPostCod,
+      'change_of_direction_count': instance.changeOfDirectionCount,
+      'time_to_505_around_90': instance.timeTo505Around90,
+      'time_to_505_around_180': instance.timeTo505Around180,
+    };
