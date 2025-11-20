@@ -16,10 +16,10 @@ final playersProvider = FutureProvider<List<Player>>((ref) async {
 
 final selectedPlayerProvider = StateProvider<Player?>((ref) => null);
 
-<<<<<<< HEAD
-final shortlistProvider = StateNotifierProvider<ShortlistNotifier, List<Player>>((ref) {
-  return ShortlistNotifier(ref);
-});
+final shortlistProvider =
+    StateNotifierProvider<ShortlistNotifier, List<Player>>((ref) {
+      return ShortlistNotifier(ref);
+    });
 
 class ShortlistNotifier extends StateNotifier<List<Player>> {
   final Ref _ref;
@@ -30,7 +30,9 @@ class ShortlistNotifier extends StateNotifier<List<Player>> {
     final repository = _ref.read(playerRepositoryProvider);
 
     try {
-      final success = await repository.addToShortList(player.playerId.toString());
+      final success = await repository.addToShortList(
+        player.playerId.toString(),
+      );
 
       if (success) {
         // Add player to local state if not already present
@@ -52,7 +54,3 @@ class ShortlistNotifier extends StateNotifier<List<Player>> {
     state = [];
   }
 }
-=======
-/// Holds the last player found via name search (keeps it independent from card selection).
-final searchedPlayerProvider = StateProvider<Player?>((ref) => null);
->>>>>>> 7a37f2e5020d64eb343bc776bb6c8c4fc5d9a7b1
