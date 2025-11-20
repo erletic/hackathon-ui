@@ -6,10 +6,7 @@ import '../config/app_config.dart';
 class CreateSearchProfileScreen extends ConsumerStatefulWidget {
   final SearchProfile? existingProfile;
 
-  const CreateSearchProfileScreen({
-    super.key,
-    this.existingProfile,
-  });
+  const CreateSearchProfileScreen({super.key, this.existingProfile});
 
   @override
   ConsumerState<CreateSearchProfileScreen> createState() =>
@@ -185,10 +182,7 @@ class _CreateSearchProfileScreenState
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: [
-                  _buildBasicTab(),
-                  _buildPerformanceTab(),
-                ],
+                children: [_buildBasicTab(), _buildPerformanceTab()],
               ),
             ),
             _buildActionButtons(isEdit),
@@ -208,13 +202,10 @@ class _CreateSearchProfileScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Position',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text('Position', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: _position,
+                  initialValue: _position,
                   decoration: const InputDecoration(
                     labelText: 'Specific Position',
                     border: OutlineInputBorder(),
@@ -226,10 +217,7 @@ class _CreateSearchProfileScreenState
                       child: Text('Any Position'),
                     ),
                     ..._positions.map((pos) {
-                      return DropdownMenuItem(
-                        value: pos,
-                        child: Text(pos),
-                      );
+                      return DropdownMenuItem(value: pos, child: Text(pos));
                     }),
                   ],
                   onChanged: (value) {
@@ -240,7 +228,7 @@ class _CreateSearchProfileScreenState
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: _positionGroup,
+                  initialValue: _positionGroup,
                   decoration: const InputDecoration(
                     labelText: 'Position Group',
                     border: OutlineInputBorder(),
@@ -252,10 +240,7 @@ class _CreateSearchProfileScreenState
                       child: Text('Any Position Group'),
                     ),
                     ..._positionGroups.map((group) {
-                      return DropdownMenuItem(
-                        value: group,
-                        child: Text(group),
-                      );
+                      return DropdownMenuItem(value: group, child: Text(group));
                     }),
                   ],
                   onChanged: (value) {
@@ -499,15 +484,12 @@ class _CreateSearchProfileScreenState
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(
-              description,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            Text(description, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -518,8 +500,9 @@ class _CreateSearchProfileScreenState
                       labelText: 'Min',
                       border: OutlineInputBorder(),
                     ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     onChanged: (value) {
                       onMinChanged(double.tryParse(value));
                     },
@@ -543,8 +526,9 @@ class _CreateSearchProfileScreenState
                       labelText: 'Max',
                       border: OutlineInputBorder(),
                     ),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     onChanged: (value) {
                       onMaxChanged(double.tryParse(value));
                     },
@@ -578,9 +562,9 @@ class _CreateSearchProfileScreenState
                 const SizedBox(width: 8),
                 Text(
                   'Priority Weight:',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const Spacer(),
                 Container(
@@ -614,8 +598,10 @@ class _CreateSearchProfileScreenState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Not Important',
-                    style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  'Not Important',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 Text('Must-Have', style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
@@ -645,15 +631,12 @@ class _CreateSearchProfileScreenState
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(
-              description,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            Text(description, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -722,9 +705,9 @@ class _CreateSearchProfileScreenState
                 const SizedBox(width: 8),
                 Text(
                   'Priority Weight:',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const Spacer(),
                 Container(
@@ -758,8 +741,10 @@ class _CreateSearchProfileScreenState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Not Important',
-                    style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  'Not Important',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 Text('Must-Have', style: Theme.of(context).textTheme.bodySmall),
               ],
             ),

@@ -46,15 +46,9 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
       body: isDesktop
           ? Row(
               children: [
-                Expanded(
-                  flex: 5,
-                  child: _buildTabContent(),
-                ),
+                Expanded(flex: 5, child: _buildTabContent()),
                 const VerticalDivider(width: 1),
-                Expanded(
-                  flex: 4,
-                  child: _buildFormationVisualization(),
-                ),
+                Expanded(flex: 4, child: _buildFormationVisualization()),
               ],
             )
           : _buildTabContent(),
@@ -64,11 +58,7 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
   Widget _buildTabContent() {
     return TabBarView(
       controller: _tabController,
-      children: [
-        _buildOffenseTab(),
-        _buildDefenseTab(),
-        _buildFormationTab(),
-      ],
+      children: [_buildOffenseTab(), _buildDefenseTab(), _buildFormationTab()],
     );
   }
 
@@ -90,7 +80,7 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<BuildUpPlay>(
-                  value: tactics.buildUpPlay,
+                  initialValue: tactics.buildUpPlay,
                   decoration: const InputDecoration(
                     labelText: 'Build Up Style',
                     border: OutlineInputBorder(),
@@ -125,7 +115,7 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<ChanceCreation>(
-                  value: tactics.chanceCreation,
+                  initialValue: tactics.chanceCreation,
                   decoration: const InputDecoration(
                     labelText: 'Attacking Style',
                     border: OutlineInputBorder(),
@@ -154,10 +144,7 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Width',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text('Width', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text(
                   'How wide the team spreads in attack',
@@ -170,14 +157,17 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                   divisions: 10,
                   label: tactics.width.round().toString(),
                   onChanged: (value) {
-                    ref.read(offensiveTacticsProvider.notifier).state =
-                        tactics.copyWith(width: value);
+                    ref.read(offensiveTacticsProvider.notifier).state = tactics
+                        .copyWith(width: value);
                   },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Narrow', style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      'Narrow',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     Text('Wide', style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
@@ -208,8 +198,8 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                   divisions: 9,
                   label: tactics.playersInBox.round().toString(),
                   onChanged: (value) {
-                    ref.read(offensiveTacticsProvider.notifier).state =
-                        tactics.copyWith(playersInBox: value);
+                    ref.read(offensiveTacticsProvider.notifier).state = tactics
+                        .copyWith(playersInBox: value);
                   },
                 ),
                 Row(
@@ -236,18 +226,19 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: tactics.corners,
+                  initialValue: tactics.corners,
                   decoration: const InputDecoration(
                     labelText: 'Corners',
                     border: OutlineInputBorder(),
                   ),
                   items: ['Mixed', 'Short', 'Long', 'Near Post', 'Far Post']
                       .map((style) {
-                    return DropdownMenuItem(
-                      value: style,
-                      child: Text(style),
-                    );
-                  }).toList(),
+                        return DropdownMenuItem(
+                          value: style,
+                          child: Text(style),
+                        );
+                      })
+                      .toList(),
                   onChanged: (value) {
                     if (value != null) {
                       ref.read(offensiveTacticsProvider.notifier).state =
@@ -257,17 +248,13 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: tactics.freeKicks,
+                  initialValue: tactics.freeKicks,
                   decoration: const InputDecoration(
                     labelText: 'Free Kicks',
                     border: OutlineInputBorder(),
                   ),
-                  items: ['Mixed', 'Direct', 'Short', 'Cross']
-                      .map((style) {
-                    return DropdownMenuItem(
-                      value: style,
-                      child: Text(style),
-                    );
+                  items: ['Mixed', 'Direct', 'Short', 'Cross'].map((style) {
+                    return DropdownMenuItem(value: style, child: Text(style));
                   }).toList(),
                   onChanged: (value) {
                     if (value != null) {
@@ -296,13 +283,10 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Pressing',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text('Pressing', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<PressingIntensity>(
-                  value: tactics.pressing,
+                  initialValue: tactics.pressing,
                   decoration: const InputDecoration(
                     labelText: 'Pressing Intensity',
                     border: OutlineInputBorder(),
@@ -347,14 +331,17 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                   divisions: 10,
                   label: tactics.width.round().toString(),
                   onChanged: (value) {
-                    ref.read(defensiveTacticsProvider.notifier).state =
-                        tactics.copyWith(width: value);
+                    ref.read(defensiveTacticsProvider.notifier).state = tactics
+                        .copyWith(width: value);
                   },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Compact', style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      'Compact',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     Text('Wide', style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
@@ -375,7 +362,7 @@ class _TacticsScreenState extends ConsumerState<TacticsScreen>
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<DefensiveDepth>(
-                  value: tactics.depth,
+                  initialValue: tactics.depth,
                   decoration: const InputDecoration(
                     labelText: 'Defensive Line',
                     border: OutlineInputBorder(),

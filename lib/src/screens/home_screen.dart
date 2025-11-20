@@ -177,8 +177,8 @@ class HomeScreen extends ConsumerWidget {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       CreateSearchProfileScreen(
-                                    existingProfile: profiles[index],
-                                  ),
+                                        existingProfile: profiles[index],
+                                      ),
                                 ),
                               );
                               if (result != null && context.mounted) {
@@ -224,8 +224,12 @@ class HomeScreen extends ConsumerWidget {
                                             )
                                             .state =
                                         index;
-                                    ref.read(selectedPlayerProvider.notifier)
-                                        .state = null;
+                                    ref
+                                            .read(
+                                              selectedPlayerProvider.notifier,
+                                            )
+                                            .state =
+                                        null;
                                   }
                                 }
                               },
@@ -326,8 +330,7 @@ class HomeScreen extends ConsumerWidget {
             labelText: 'Name',
             hintText: 'z.B. Jude Bellingham',
           ),
-          onSubmitted: (value) =>
-              Navigator.of(dialogContext).pop(value.trim()),
+          onSubmitted: (value) => Navigator.of(dialogContext).pop(value.trim()),
         ),
         actions: [
           TextButton(
@@ -391,7 +394,7 @@ class HomeScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: color.surfaceVariant.withOpacity(0.6),
+        color: color.surfaceContainerHighest.withOpacity(0.6),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.outlineVariant.withOpacity(0.6)),
       ),
@@ -407,8 +410,7 @@ class HomeScreen extends ConsumerWidget {
           ),
           Text(
             value,
-            style:
-                theme.textTheme.labelSmall?.copyWith(color: color.onSurface),
+            style: theme.textTheme.labelSmall?.copyWith(color: color.onSurface),
           ),
         ],
       ),
@@ -451,8 +453,9 @@ class HomeScreen extends ConsumerWidget {
         ),
         child: Text(
           'Gefundener Spieler erscheint hier (nicht mit Auswahl synchronisiert).',
-          style: theme.textTheme.bodySmall
-              ?.copyWith(color: color.onSurfaceVariant),
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: color.onSurfaceVariant,
+          ),
         ),
       );
     }

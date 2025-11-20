@@ -93,10 +93,7 @@ class FormationFieldPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      linePaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), linePaint);
 
     canvas.drawLine(
       Offset(0, size.height / 2),
@@ -104,20 +101,11 @@ class FormationFieldPainter extends CustomPainter {
       linePaint,
     );
 
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      30,
-      linePaint,
-    );
+    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 30, linePaint);
 
     final penaltyBoxHeight = size.height * 0.2;
     canvas.drawRect(
-      Rect.fromLTWH(
-        size.width * 0.3,
-        0,
-        size.width * 0.4,
-        penaltyBoxHeight,
-      ),
+      Rect.fromLTWH(size.width * 0.3, 0, size.width * 0.4, penaltyBoxHeight),
       linePaint,
     );
     canvas.drawRect(
@@ -148,11 +136,12 @@ class FormationFieldPainter extends CustomPainter {
       ..strokeWidth = 2;
 
     for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
-      final playersInLine = positions[lineIndex].length > 0
+      final playersInLine = positions[lineIndex].isNotEmpty
           ? positions[lineIndex][0]
           : 1;
 
-      final baseY = size.height * (0.1 + (lineIndex * 0.8 / lineCount)) + depthOffset;
+      final baseY =
+          size.height * (0.1 + (lineIndex * 0.8 / lineCount)) + depthOffset;
 
       final pressingAnimation = _getPressingAnimation(lineIndex);
       final y = baseY - pressingAnimation;
