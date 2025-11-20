@@ -32,31 +32,10 @@ class HomeScreen extends ConsumerWidget {
             icon: const Icon(Icons.sports_soccer),
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const TacticsScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const TacticsScreen()),
               );
             },
             tooltip: 'Tactics & Formation',
-          ),
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () async {
-              final result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const CreateSearchProfileScreen(),
-                ),
-              );
-              if (result != null && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Search profile created successfully'),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-              }
-            },
-            tooltip: 'Create Search Profile',
           ),
         ],
       ),
@@ -90,13 +69,16 @@ class HomeScreen extends ConsumerWidget {
                         onPressed: () async {
                           final result = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const CreateSearchProfileScreen(),
+                              builder: (context) =>
+                                  const CreateSearchProfileScreen(),
                             ),
                           );
                           if (result != null && context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Search profile created successfully'),
+                                content: Text(
+                                  'Search profile created successfully',
+                                ),
                                 backgroundColor: Colors.green,
                               ),
                             );
@@ -124,10 +106,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ),
                     const VerticalDivider(width: 1),
-                    const Expanded(
-                      flex: 4,
-                      child: PlayerDetailView(),
-                    ),
+                    const Expanded(flex: 4, child: PlayerDetailView()),
                   ],
                 );
               } else {
@@ -157,63 +136,118 @@ class HomeScreen extends ConsumerWidget {
       children: [
         if (profiles.length > 1)
           Container(
-            height: 48,
+            height: 32,
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(
-                  color: Theme.of(context).dividerColor,
-                ),
+                bottom: BorderSide(color: Theme.of(context).dividerColor),
               ),
             ),
-            child: ListView.builder(
+            child: ListView(
               scrollDirection: Axis.horizontal,
-              itemCount: profiles.length,
-              itemBuilder: (context, index) {
-                final profile = profiles[index];
-                final isSelected = index == selectedIndex;
-
-                return Padding(
+              children: [
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: GestureDetector(
-                    onLongPress: () async {
+                  child: FilledButton.icon(
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      minimumSize: const Size(0, 32),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    icon: const Icon(Icons.add, size: 18),
+                    label: const Text('Neue Suche starten'),
+                    onPressed: () async {
                       final result = await Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => CreateSearchProfileScreen(
-                            existingProfile: profile,
-                          ),
+                          builder: (context) =>
+                              const CreateSearchProfileScreen(),
                         ),
                       );
                       if (result != null && context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Search profile updated successfully'),
+                            content: Text(
+                              'Search profile created successfully',
+                            ),
                             backgroundColor: Colors.green,
                           ),
                         );
                       }
                     },
-                    child: ChoiceChip(
-                      label: Text(
-                        profile.position ?? profile.positionGroup ?? 'Profile ${index + 1}',
-                      ),
-                      selected: isSelected,
-                      onSelected: (selected) {
-                        if (selected) {
-                          if (AppConfig.useMockData) {
-                            ref.read(mockSelectedSearchProfileIndexProvider.notifier).state = index;
-                            ref.read(mockSelectedPlayerProvider.notifier).state = null;
-                          } else {
-                            ref.read(selectedSearchProfileIndexProvider.notifier).state = index;
-                            ref.read(selectedPlayerProvider.notifier).state = null;
-                          }
+                  ),
+                ),
+
+                // Danach alle ChoiceChips
+                for (int index = 0; index < profiles.length; index++)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: GestureDetector(
+                      onLongPress: () async {
+                        final result = await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CreateSearchProfileScreen(
+                              existingProfile: profiles[index],
+                            ),
+                          ),
+                        );
+                        if (result != null && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Search profile updated successfully',
+                              ),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
                         }
                       },
+
+                      child: ChoiceChip(
+                        label: Text(
+                          profiles[index].position ??
+                              profiles[index].positionGroup ??
+                              'Profile ${index + 1}',
+                        ),
+                        selected: index == selectedIndex,
+                        onSelected: (selected) {
+                          if (selected) {
+                            if (AppConfig.useMockData) {
+                              ref
+                                      .read(
+                                        mockSelectedSearchProfileIndexProvider
+                                            .notifier,
+                                      )
+                                      .state =
+                                  index;
+                              ref
+                                      .read(mockSelectedPlayerProvider.notifier)
+                                      .state =
+                                  null;
+                            } else {
+                              ref
+                                      .read(
+                                        selectedSearchProfileIndexProvider
+                                            .notifier,
+                                      )
+                                      .state =
+                                  index;
+                              ref.read(selectedPlayerProvider.notifier).state =
+                                  null;
+                            }
+                          }
+                        },
+                      ),
                     ),
                   ),
-                );
-              },
+              ],
             ),
           ),
+
         Expanded(
           child: players.when(
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -255,16 +289,19 @@ class HomeScreen extends ConsumerWidget {
                   final selectedPlayer = AppConfig.useMockData
                       ? ref.watch(mockSelectedPlayerProvider)
                       : ref.watch(selectedPlayerProvider);
-                  final isSelected = selectedPlayer?.playerId == player.playerId;
+                  final isSelected =
+                      selectedPlayer?.playerId == player.playerId;
 
                   return PlayerCard(
                     player: player,
                     isSelected: isSelected,
                     onTap: () {
                       if (AppConfig.useMockData) {
-                        ref.read(mockSelectedPlayerProvider.notifier).state = player;
+                        ref.read(mockSelectedPlayerProvider.notifier).state =
+                            player;
                       } else {
-                        ref.read(selectedPlayerProvider.notifier).state = player;
+                        ref.read(selectedPlayerProvider.notifier).state =
+                            player;
                       }
                     },
                   );
