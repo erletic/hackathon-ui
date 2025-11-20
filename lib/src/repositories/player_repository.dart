@@ -14,4 +14,12 @@ class PlayerRepository {
       return [];
     }
   }
+
+  Future<bool> addToShortList(String playerId) async {
+    try {
+      return await _service.addToShortList(playerId);
+    } on DioException {
+      rethrow;
+    }
+  }
 }
