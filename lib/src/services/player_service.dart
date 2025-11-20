@@ -14,7 +14,22 @@ class PlayerService {
         queryParameters: {'search_profile_id': searchProfileId},
       );
       final data = response.data as List;
-      return data.map((json) => Player.fromJson(json as Map<String, dynamic>)).toList();
+      return data
+          .map((json) => Player.fromJson(json as Map<String, dynamic>))
+          .toList();
+    } on DioException {
+      rethrow;
+    }
+  }
+
+  Future<bool> addToShortList(String playerId) async {
+    try {
+      final response = await _client.post('/api/players/$playerId/shortlist');
+      if (response.statusCode != 200) {
+        return false;
+      } else {
+        return true;
+      }
     } on DioException {
       rethrow;
     }
