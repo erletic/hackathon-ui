@@ -8,51 +8,71 @@ class PerformanceFilters {
   final double? minDistance;
   @JsonKey(name: 'max_distance')
   final double? maxDistance;
+  @JsonKey(name: 'distance_weight')
+  final double distanceWeight;
 
   @JsonKey(name: 'min_m_per_min')
   final double? minMPerMin;
   @JsonKey(name: 'max_m_per_min')
   final double? maxMPerMin;
+  @JsonKey(name: 'm_per_min_weight')
+  final double mPerMinWeight;
 
   @JsonKey(name: 'min_running_distance')
   final double? minRunningDistance;
   @JsonKey(name: 'max_running_distance')
   final double? maxRunningDistance;
+  @JsonKey(name: 'running_distance_weight')
+  final double runningDistanceWeight;
 
   @JsonKey(name: 'min_hsr_distance')
   final double? minHsrDistance;
   @JsonKey(name: 'max_hsr_distance')
   final double? maxHsrDistance;
+  @JsonKey(name: 'hsr_distance_weight')
+  final double hsrDistanceWeight;
 
   @JsonKey(name: 'min_hsr_count')
   final int? minHsrCount;
   @JsonKey(name: 'max_hsr_count')
   final int? maxHsrCount;
+  @JsonKey(name: 'hsr_count_weight')
+  final double hsrCountWeight;
 
   @JsonKey(name: 'min_sprint_distance')
   final double? minSprintDistance;
   @JsonKey(name: 'max_sprint_distance')
   final double? maxSprintDistance;
+  @JsonKey(name: 'sprint_distance_weight')
+  final double sprintDistanceWeight;
 
   @JsonKey(name: 'min_sprint_count')
   final int? minSprintCount;
   @JsonKey(name: 'max_sprint_count')
   final int? maxSprintCount;
+  @JsonKey(name: 'sprint_count_weight')
+  final double sprintCountWeight;
 
   @JsonKey(name: 'min_hi_distance')
   final double? minHiDistance;
   @JsonKey(name: 'max_hi_distance')
   final double? maxHiDistance;
+  @JsonKey(name: 'hi_distance_weight')
+  final double hiDistanceWeight;
 
   @JsonKey(name: 'min_hi_count')
   final int? minHiCount;
   @JsonKey(name: 'max_hi_count')
   final int? maxHiCount;
+  @JsonKey(name: 'hi_count_weight')
+  final double hiCountWeight;
 
   @JsonKey(name: 'min_psv_99')
   final double? minPsv99;
   @JsonKey(name: 'max_psv_99')
   final double? maxPsv99;
+  @JsonKey(name: 'psv_99_weight')
+  final double psv99Weight;
 
   @JsonKey(name: 'min_medium_acceleration_count')
   final int? minMediumAccelerationCount;
@@ -122,24 +142,34 @@ class PerformanceFilters {
   PerformanceFilters({
     this.minDistance,
     this.maxDistance,
+    this.distanceWeight = 1.0,
     this.minMPerMin,
     this.maxMPerMin,
+    this.mPerMinWeight = 1.0,
     this.minRunningDistance,
     this.maxRunningDistance,
+    this.runningDistanceWeight = 1.0,
     this.minHsrDistance,
     this.maxHsrDistance,
+    this.hsrDistanceWeight = 1.0,
     this.minHsrCount,
     this.maxHsrCount,
+    this.hsrCountWeight = 1.0,
     this.minSprintDistance,
     this.maxSprintDistance,
+    this.sprintDistanceWeight = 1.0,
     this.minSprintCount,
     this.maxSprintCount,
+    this.sprintCountWeight = 1.0,
     this.minHiDistance,
     this.maxHiDistance,
+    this.hiDistanceWeight = 1.0,
     this.minHiCount,
     this.maxHiCount,
+    this.hiCountWeight = 1.0,
     this.minPsv99,
     this.maxPsv99,
+    this.psv99Weight = 1.0,
     this.minMediumAccelerationCount,
     this.maxMediumAccelerationCount,
     this.minHighAccelerationCount,

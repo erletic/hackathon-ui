@@ -21,6 +21,16 @@ The user shall be able to specify SearchProfiles and List them in a grid view wi
 
 ## Snapshot (a players performance in a distinct match)
 
+Physical Check Passed
+Distance
+M/min
+Running Distance
+HSR Distance
+HSR Count
+Sprint
+Distance
+Sprint Count	HI Distance	HI Count	PSV-99	Medium Acceleration Count	High Acceleration Count	Medium Deceleration Count	High Deceleration Count	Explosive Acceleration to HSR Count	Time to HSR	Time to HSR post-COD	Explosive Acceleration to Sprint Count	Time to Sprint	Time to Sprint post-COD	Change of Direction Count	Time to 505 around 90	Time to 505 around 180
+Running Distance	HSR Distance	HSR Count	Sprint Distance	Sprint Count	HI Distance	HI Count	PSV-99	Medium Acceleration Count	High Acceleration Count	Medium Deceleration Count	High Deceleration Count	Explosive Acceleration to HSR Count	Time to HSR	Time to HSR post-COD	Explosive Acceleration to Sprint Count	Time to Sprint	Time to Sprint post-COD	Change of Direction Count	Time to 505 around 90	Time to 505 around 180
 
 # Views
 
