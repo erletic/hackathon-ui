@@ -127,7 +127,7 @@ class PlayerDetailView extends ConsumerWidget {
                             // TODO: Add to shortlist
                           },
                           icon: const Icon(Icons.star_border),
-                          label: const Text('Add to Shortlist'),
+                          label: const Text('Beobachten'),
                         ),
                       ],
                     ),

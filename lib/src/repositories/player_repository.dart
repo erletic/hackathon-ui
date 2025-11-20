@@ -14,4 +14,12 @@ class PlayerRepository {
       return [];
     }
   }
+
+  Future<Player?> getPlayerByName(String name) async {
+    try {
+      return await _service.getPlayerByName(name);
+    } on DioException {
+      return null;
+    }
+  }
 }
