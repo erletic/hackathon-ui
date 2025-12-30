@@ -8,16 +8,16 @@ part of 'match.dart';
 
 Match _$MatchFromJson(Map<String, dynamic> json) => Match(
   name: json['name'] as String,
-  matchId: (json['match_id'] as num).toInt(),
+  matchId: (json['matchId'] as num).toInt(),
   date: json['date'] as String,
-  competitionId: (json['competition_id'] as num).toInt(),
-  seasonId: (json['season_id'] as num).toInt(),
+  competitionId: (json['competitionId'] as num).toInt(),
+  seasonId: (json['seasonId'] as num).toInt(),
 );
 
 Map<String, dynamic> _$MatchToJson(Match instance) => <String, dynamic>{
   'name': instance.name,
-  'match_id': instance.matchId,
+  'matchId': instance.matchId,
   'date': instance.date,
-  'competition_id': instance.competitionId,
-  'season_id': instance.seasonId,
+  'competitionId': instance.competitionId,
+  'seasonId': instance.seasonId,
 };

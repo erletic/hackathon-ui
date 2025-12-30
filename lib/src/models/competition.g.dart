@@ -8,11 +8,11 @@ part of 'competition.dart';
 
 Competition _$CompetitionFromJson(Map<String, dynamic> json) => Competition(
   name: json['name'] as String,
-  competitionId: (json['competition_id'] as num).toInt(),
+  competitionId: (json['competitionId'] as num).toInt(),
 );
 
 Map<String, dynamic> _$CompetitionToJson(Competition instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'competition_id': instance.competitionId,
+      'competitionId': instance.competitionId,
     };

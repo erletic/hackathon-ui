@@ -5,12 +5,9 @@ part 'match.g.dart';
 @JsonSerializable()
 class Match {
   final String name;
-  @JsonKey(name: 'match_id')
   final int matchId;
   final String date;
-  @JsonKey(name: 'competition_id')
   final int competitionId;
-  @JsonKey(name: 'season_id')
   final int seasonId;
 
   Match({

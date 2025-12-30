@@ -23,19 +23,22 @@ class HomeScreen extends ConsumerWidget {
     final selectedIndex = AppConfig.useMockData
         ? ref.watch(mockSelectedSearchProfileIndexProvider)
         : ref.watch(selectedSearchProfileIndexProvider);
-    final players = AppConfig.useMockData
-        ? ref.watch(mockPlayersProvider)
-        : ref.watch(playersProvider);
+
+    // Check if we're in similar player mode (when a player has been searched)
+    final searchedPlayer = ref.watch(searchedPlayerProvider);
+    final isSimilarMode = searchedPlayer != null;
+
+    final players = isSimilarMode
+        ? ref.watch(similarPlayersProvider)
+        : (AppConfig.useMockData
+              ? ref.watch(mockPlayersProvider)
+              : ref.watch(playersProvider));
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Player Scout'),
+        title: const Text('Scoutly'),
+        centerTitle: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.person_search),
-            onPressed: () => _openPlayerSearchDialog(context, ref),
-            tooltip: 'Spieler nach Name suchen',
-          ),
           IconButton(
             icon: const Icon(Icons.sports_soccer),
             onPressed: () {
@@ -44,6 +47,26 @@ class HomeScreen extends ConsumerWidget {
               );
             },
             tooltip: 'Tactics & Formation',
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CreateSearchProfileScreen(),
+                ),
+              );
+            },
+            tooltip: 'Create Search Profile',
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Image.asset(
+              'assets/logo.png',
+              height: 40,
+              width: 40,
+              fit: BoxFit.contain,
+            ),
           ),
         ],
       ),
@@ -111,10 +134,16 @@ class HomeScreen extends ConsumerWidget {
                         profiles,
                         selectedIndex,
                         players,
+                        isSimilarMode,
                       ),
                     ),
                     const VerticalDivider(width: 1),
-                    const Expanded(flex: 4, child: PlayerDetailView()),
+                    Expanded(
+                      flex: 4,
+                      child: PlayerDetailView(
+                        basePlayer: isSimilarMode ? searchedPlayer : null,
+                      ),
+                    ),
                   ],
                 );
               } else {
@@ -124,6 +153,7 @@ class HomeScreen extends ConsumerWidget {
                   profiles,
                   selectedIndex,
                   players,
+                  isSimilarMode,
                 );
               }
             },
@@ -139,6 +169,7 @@ class HomeScreen extends ConsumerWidget {
     List profiles,
     int selectedIndex,
     AsyncValue players,
+    bool isSimilarMode,
   ) {
     return Column(
       children: [
@@ -147,21 +178,26 @@ class HomeScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FilledButton.icon(
-                style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
+              Row(
+                children: [
+                  FilledButton.icon(
+                    icon: const Icon(Icons.add, size: 18),
+                    label: const Text('Neue Suche starten'),
+                    onPressed: () => _openPlayerSearchDialog(context, ref),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                icon: const Icon(Icons.add, size: 18),
-                label: const Text('Neue Suche starten'),
-                onPressed: () => _openPlayerSearchDialog(context, ref),
+                  if (isSimilarMode) ...[
+                    const SizedBox(width: 12),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.arrow_back, size: 18),
+                      label: const Text('Zurück zu Suchprofilen'),
+                      onPressed: () {
+                        ref.read(searchedPlayerProvider.notifier).state = null;
+                      },
+                    ),
+                  ],
+                ],
               ),
-              if (profiles.isNotEmpty) ...[
+              if (!isSimilarMode && profiles.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 40,
@@ -194,8 +230,8 @@ class HomeScreen extends ConsumerWidget {
                             },
                             child: ChoiceChip(
                               label: Text(
-                                profiles[index].position ??
-                                    profiles[index].positionGroup ??
+                                "${profiles[index].name} ${index + 1}" ??
+                                    profiles[index].position ??
                                     'Profile ${index + 1}',
                               ),
                               selected: index == selectedIndex,
@@ -245,7 +281,7 @@ class HomeScreen extends ConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
-          child: _buildSearchedPlayerSummary(context, ref),
+          child: _buildSearchedPlayerSummary(context, ref, isSimilarMode),
         ),
 
         Expanded(
@@ -438,7 +474,11 @@ class HomeScreen extends ConsumerWidget {
     return null;
   }
 
-  Widget _buildSearchedPlayerSummary(BuildContext context, WidgetRef ref) {
+  Widget _buildSearchedPlayerSummary(
+    BuildContext context,
+    WidgetRef ref,
+    bool isSimilarMode,
+  ) {
     final player = ref.watch(searchedPlayerProvider);
     final theme = Theme.of(context);
     final color = theme.colorScheme;
@@ -460,41 +500,69 @@ class HomeScreen extends ConsumerWidget {
       );
     }
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.outlineVariant.withOpacity(0.5)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Gefundener Spieler',
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w700,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color.primary.withOpacity(0.5)),
+          color: isSimilarMode
+              ? color.primaryContainer.withOpacity(0.3)
+              : color.surfaceContainerHighest.withOpacity(0.3),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: player.imgurl != null
+                  ? NetworkImage(player.imgurl!)
+                  : const AssetImage('assets/default_player.png')
+                        as ImageProvider,
+              backgroundColor: color.surfaceVariant,
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            player.name,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isSimilarMode ? 'Ähnliche Spieler zu:' : 'Gefundener Spieler',
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: isSimilarMode ? color.primary : null,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  player.name,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 6,
+                  children: [
+                    _buildInfoChip(context, 'Kurzname', player.shortName),
+                    _buildInfoChip(
+                      context,
+                      'Player ID',
+                      player.playerId.toString(),
+                    ),
+                    _buildInfoChip(
+                      context,
+                      'Team ID',
+                      player.teamName.toString(),
+                    ),
+                    _buildInfoChip(context, 'Geburtstag', player.birthdate),
+                  ],
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 6),
-          Wrap(
-            spacing: 10,
-            runSpacing: 6,
-            children: [
-              _buildInfoChip(context, 'Kurzname', player.shortName),
-              _buildInfoChip(context, 'Player ID', player.playerId.toString()),
-              _buildInfoChip(context, 'Team ID', player.teamId.toString()),
-              _buildInfoChip(context, 'Geburtstag', player.birthdate),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -4,140 +4,86 @@ part 'search_profile.g.dart';
 
 @JsonSerializable()
 class PerformanceFilters {
-  @JsonKey(name: 'min_distance')
   final double? minDistance;
-  @JsonKey(name: 'max_distance')
   final double? maxDistance;
-  @JsonKey(name: 'distance_weight')
   final double distanceWeight;
 
-  @JsonKey(name: 'min_m_per_min')
   final double? minMPerMin;
-  @JsonKey(name: 'max_m_per_min')
   final double? maxMPerMin;
-  @JsonKey(name: 'm_per_min_weight')
   final double mPerMinWeight;
 
-  @JsonKey(name: 'min_running_distance')
   final double? minRunningDistance;
-  @JsonKey(name: 'max_running_distance')
   final double? maxRunningDistance;
-  @JsonKey(name: 'running_distance_weight')
   final double runningDistanceWeight;
 
-  @JsonKey(name: 'min_hsr_distance')
   final double? minHsrDistance;
-  @JsonKey(name: 'max_hsr_distance')
   final double? maxHsrDistance;
-  @JsonKey(name: 'hsr_distance_weight')
   final double hsrDistanceWeight;
 
-  @JsonKey(name: 'min_hsr_count')
   final int? minHsrCount;
-  @JsonKey(name: 'max_hsr_count')
   final int? maxHsrCount;
-  @JsonKey(name: 'hsr_count_weight')
   final double hsrCountWeight;
 
-  @JsonKey(name: 'min_sprint_distance')
   final double? minSprintDistance;
-  @JsonKey(name: 'max_sprint_distance')
   final double? maxSprintDistance;
-  @JsonKey(name: 'sprint_distance_weight')
   final double sprintDistanceWeight;
 
-  @JsonKey(name: 'min_sprint_count')
   final int? minSprintCount;
-  @JsonKey(name: 'max_sprint_count')
   final int? maxSprintCount;
-  @JsonKey(name: 'sprint_count_weight')
   final double sprintCountWeight;
 
-  @JsonKey(name: 'min_hi_distance')
   final double? minHiDistance;
-  @JsonKey(name: 'max_hi_distance')
   final double? maxHiDistance;
-  @JsonKey(name: 'hi_distance_weight')
   final double hiDistanceWeight;
 
-  @JsonKey(name: 'min_hi_count')
   final int? minHiCount;
-  @JsonKey(name: 'max_hi_count')
   final int? maxHiCount;
-  @JsonKey(name: 'hi_count_weight')
   final double hiCountWeight;
 
-  @JsonKey(name: 'min_psv_99')
   final double? minPsv99;
-  @JsonKey(name: 'max_psv_99')
   final double? maxPsv99;
-  @JsonKey(name: 'psv_99_weight')
   final double psv99Weight;
 
-  @JsonKey(name: 'min_medium_acceleration_count')
   final int? minMediumAccelerationCount;
-  @JsonKey(name: 'max_medium_acceleration_count')
   final int? maxMediumAccelerationCount;
 
-  @JsonKey(name: 'min_high_acceleration_count')
   final int? minHighAccelerationCount;
-  @JsonKey(name: 'max_high_acceleration_count')
   final int? maxHighAccelerationCount;
 
-  @JsonKey(name: 'min_medium_deceleration_count')
   final int? minMediumDecelerationCount;
-  @JsonKey(name: 'max_medium_deceleration_count')
   final int? maxMediumDecelerationCount;
 
-  @JsonKey(name: 'min_high_deceleration_count')
   final int? minHighDecelerationCount;
-  @JsonKey(name: 'max_high_deceleration_count')
   final int? maxHighDecelerationCount;
 
-  @JsonKey(name: 'min_explosive_acceleration_to_hsr_count')
   final int? minExplosiveAccelerationToHsrCount;
-  @JsonKey(name: 'max_explosive_acceleration_to_hsr_count')
   final int? maxExplosiveAccelerationToHsrCount;
 
-  @JsonKey(name: 'min_time_to_hsr')
   final double? minTimeToHsr;
-  @JsonKey(name: 'max_time_to_hsr')
   final double? maxTimeToHsr;
 
-  @JsonKey(name: 'min_time_to_hsr_post_cod')
   final double? minTimeToHsrPostCod;
-  @JsonKey(name: 'max_time_to_hsr_post_cod')
   final double? maxTimeToHsrPostCod;
 
-  @JsonKey(name: 'min_explosive_acceleration_to_sprint_count')
   final int? minExplosiveAccelerationToSprintCount;
-  @JsonKey(name: 'max_explosive_acceleration_to_sprint_count')
   final int? maxExplosiveAccelerationToSprintCount;
 
-  @JsonKey(name: 'min_time_to_sprint')
   final double? minTimeToSprint;
-  @JsonKey(name: 'max_time_to_sprint')
   final double? maxTimeToSprint;
 
-  @JsonKey(name: 'min_time_to_sprint_post_cod')
   final double? minTimeToSprintPostCod;
-  @JsonKey(name: 'max_time_to_sprint_post_cod')
   final double? maxTimeToSprintPostCod;
 
-  @JsonKey(name: 'min_change_of_direction_count')
   final int? minChangeOfDirectionCount;
-  @JsonKey(name: 'max_change_of_direction_count')
   final int? maxChangeOfDirectionCount;
 
-  @JsonKey(name: 'min_time_to_505_around_90')
   final double? minTimeTo505Around90;
-  @JsonKey(name: 'max_time_to_505_around_90')
   final double? maxTimeTo505Around90;
 
-  @JsonKey(name: 'min_time_to_505_around_180')
   final double? minTimeTo505Around180;
-  @JsonKey(name: 'max_time_to_505_around_180')
   final double? maxTimeTo505Around180;
+
+  final List<int>? favoritePlayers;
 
   PerformanceFilters({
     this.minDistance,
@@ -196,6 +142,7 @@ class PerformanceFilters {
     this.maxTimeTo505Around90,
     this.minTimeTo505Around180,
     this.maxTimeTo505Around180,
+    this.favoritePlayers,
   });
 
   factory PerformanceFilters.fromJson(Map<String, dynamic> json) =>
@@ -206,19 +153,19 @@ class PerformanceFilters {
 
 @JsonSerializable()
 class SearchProfile {
+  final String? name;
+  final int? id;
   final String? position;
-  @JsonKey(name: 'position_group')
   final String? positionGroup;
 
-  @JsonKey(name: 'min_age')
   final int? minAge;
-  @JsonKey(name: 'max_age')
   final int? maxAge;
 
-  @JsonKey(name: 'performance_filters')
   final PerformanceFilters? performanceFilters;
 
   SearchProfile({
+    this.id,
+    this.name,
     this.position,
     this.positionGroup,
     this.minAge,

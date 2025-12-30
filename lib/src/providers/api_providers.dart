@@ -8,7 +8,7 @@ import '../repositories/player_repository.dart';
 import '../repositories/player_performance_repository.dart';
 
 final httpClientProvider = Provider<AppHttpClient>((ref) {
-  return AppHttpClient(baseUrl: 'http://localhost:3000');
+  return AppHttpClient(baseUrl: 'http://localhost:8080');
 });
 
 final searchProfileServiceProvider = Provider<SearchProfileService>((ref) {
@@ -19,11 +19,15 @@ final playerServiceProvider = Provider<PlayerService>((ref) {
   return PlayerService(ref.read(httpClientProvider));
 });
 
-final playerPerformanceServiceProvider = Provider<PlayerPerformanceService>((ref) {
+final playerPerformanceServiceProvider = Provider<PlayerPerformanceService>((
+  ref,
+) {
   return PlayerPerformanceService(ref.read(httpClientProvider));
 });
 
-final searchProfileRepositoryProvider = Provider<SearchProfileRepository>((ref) {
+final searchProfileRepositoryProvider = Provider<SearchProfileRepository>((
+  ref,
+) {
   return SearchProfileRepository(ref.read(searchProfileServiceProvider));
 });
 
@@ -31,6 +35,9 @@ final playerRepositoryProvider = Provider<PlayerRepository>((ref) {
   return PlayerRepository(ref.read(playerServiceProvider));
 });
 
-final playerPerformanceRepositoryProvider = Provider<PlayerPerformanceRepository>((ref) {
-  return PlayerPerformanceRepository(ref.read(playerPerformanceServiceProvider));
-});
+final playerPerformanceRepositoryProvider =
+    Provider<PlayerPerformanceRepository>((ref) {
+      return PlayerPerformanceRepository(
+        ref.read(playerPerformanceServiceProvider),
+      );
+    });

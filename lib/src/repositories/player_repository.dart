@@ -18,16 +18,36 @@ class PlayerRepository {
   Future<Player?> getPlayerByName(String name) async {
     try {
       return await _service.getPlayerByName(name);
-    } on DioException {
-      return null;
+    } on DioException catch (e) {
+      // Return null if player not found or error occurs
+      if (e.response?.statusCode == 404) {
+        return null;
+      }
+      rethrow;
     }
   }
 
-  Future<bool> addToShortList(String playerId) async {
+  Future<bool> addToShortList(String searchProfileId, String playerId) async {
     try {
-      return await _service.addToShortList(playerId);
+      return await _service.addToShortList(searchProfileId, playerId);
     } on DioException {
       rethrow;
+    }
+  }
+
+  Future<bool> removeFromShortList(String searchProfileId, String playerId) async {
+    try {
+      return await _service.removeFromShortList(searchProfileId, playerId);
+    } on DioException {
+      rethrow;
+    }
+  }
+
+  Future<List<Player>> getSimilarPlayers(String playerId) async {
+    try {
+      return await _service.getSimilarPlayers(playerId);
+    } on DioException {
+      return [];
     }
   }
 }

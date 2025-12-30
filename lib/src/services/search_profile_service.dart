@@ -21,9 +21,11 @@ class SearchProfileService {
 
   Future<List<SearchProfile>> getAllSearchProfiles() async {
     try {
-      final response = await _client.get('/api/search-profiles');
+      final response = await _client.get('/api/search-profiles/');
       final data = response.data as List;
-      return data.map((json) => SearchProfile.fromJson(json as Map<String, dynamic>)).toList();
+      return data
+          .map((json) => SearchProfile.fromJson(json as Map<String, dynamic>))
+          .toList();
     } on DioException {
       rethrow;
     }
@@ -41,7 +43,10 @@ class SearchProfileService {
     }
   }
 
-  Future<SearchProfile> updateSearchProfile(String id, SearchProfile profile) async {
+  Future<SearchProfile> updateSearchProfile(
+    String id,
+    SearchProfile profile,
+  ) async {
     try {
       final response = await _client.put(
         '/api/search-profiles/$id',
@@ -53,7 +58,10 @@ class SearchProfileService {
     }
   }
 
-  Future<Map<String, dynamic>> addPlayerToShortlist(String searchProfileId, int playerId) async {
+  Future<Map<String, dynamic>> addPlayerToShortlist(
+    String searchProfileId,
+    int playerId,
+  ) async {
     try {
       final response = await _client.put(
         '/api/search-profiles/$searchProfileId/players/$playerId',
@@ -64,7 +72,10 @@ class SearchProfileService {
     }
   }
 
-  Future<Map<String, dynamic>> removePlayerFromShortlist(String searchProfileId, int playerId) async {
+  Future<Map<String, dynamic>> removePlayerFromShortlist(
+    String searchProfileId,
+    int playerId,
+  ) async {
     try {
       final response = await _client.delete(
         '/api/search-profiles/$searchProfileId/players/$playerId',
@@ -75,7 +86,9 @@ class SearchProfileService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getShortlistedPlayers(String searchProfileId) async {
+  Future<List<Map<String, dynamic>>> getShortlistedPlayers(
+    String searchProfileId,
+  ) async {
     try {
       final response = await _client.get(
         '/api/search-profiles/$searchProfileId/players',

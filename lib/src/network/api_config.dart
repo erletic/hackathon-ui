@@ -7,7 +7,7 @@ import 'package:hackathon_ui/src/repositories/player_repository.dart';
 import 'package:hackathon_ui/src/repositories/player_performance_repository.dart';
 
 class ApiConfig {
-  static const String baseUrl = 'http://localhost:3000';
+  static const String baseUrl = 'http://localhost:8080';
 
   static AppHttpClient? _httpClient;
   static SearchProfileRepository? _searchProfileRepository;
@@ -23,7 +23,9 @@ class ApiConfig {
 
     _searchProfileRepository = SearchProfileRepository(searchProfileService);
     _playerRepository = PlayerRepository(playerService);
-    _playerPerformanceRepository = PlayerPerformanceRepository(playerPerformanceService);
+    _playerPerformanceRepository = PlayerPerformanceRepository(
+      playerPerformanceService,
+    );
   }
 
   static AppHttpClient get httpClient {

@@ -5,7 +5,6 @@ part 'team.g.dart';
 @JsonSerializable()
 class Team {
   final String name;
-  @JsonKey(name: 'team_id')
   final int teamId;
 
   Team({

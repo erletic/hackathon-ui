@@ -5,9 +5,7 @@ part 'season.g.dart';
 @JsonSerializable()
 class Season {
   final String name;
-  @JsonKey(name: 'season_id')
   final int seasonId;
-  @JsonKey(name: 'competition_edition_id')
   final int competitionEditionId;
 
   Season({
